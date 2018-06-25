@@ -15,12 +15,62 @@ from galeria.models import Usuario, Galeria, Foto
 # Paginacion de resultados:
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+#Protegemos las vistas con login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 # Create your views here.
 def Bienvenida(request):
     logout(request)
     template_name='base/index.html'
     data={}
     return render(request,template_name,data)
+
+@user_passes_test(lambda u: u.is_superuser, login_url = 'login' )
+def MenuAdmin(request):
+    template_name='usuarios/menuAdmin.html'
+    data={}
+    return render(request,template_name,data)
+
+
+@user_passes_test(lambda u: u.is_superuser, login_url = 'login' )
+def UsuarioListar(request):
+    data = {}
+    data=Usuario.objects.all()
+    page=request.GET.get('page',1)
+    paginator=Paginator(data,10)
+
+    try:
+        lista_objetos=paginator.page(page)
+    except PageNotAnInteger:
+        lista_objetos=paginator.page(1)
+    except EmptyPage:
+        lista_objetos=paginator.page(paginator.num_pages)
+
+    template_name='usuarios/listar.html'
+
+    return render(request, template_name,{'lista_objetos':lista_objetos})
+
+@user_passes_test(lambda u: u.is_superuser, login_url = 'login' )
+def UsuarioEditar(request, id_usuario):
+    template_name='usuarios/editar.html'
+    usuario= Usuario.objects.get(id=id_usuario)
+    if request.method=='GET':
+        form=SingUpForm(instance=usuario)
+    else:
+        form = SingUpForm(request.POST, request.FILES, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('listarUsuario'))
+    return render(request, template_name,{'form':form})
+
+@user_passes_test(lambda u: u.is_superuser, login_url = 'login' )
+def UsuarioEliminar(request, id_usuario):
+    template_name='usuarios/eliminar.html'
+    usuario=Usuario.objects.get(id=id_usuario)
+    if request.method=='POST':
+        usuario.delete()
+        return HttpResponseRedirect(reverse('listarUsuario'))
+    return render(request, template_name,{'objeto':usuario})
 
 def UsuarioCrear(request):
     template_name='usuarios/registro.html'
@@ -38,18 +88,6 @@ def UsuarioCrear(request):
         form=SingUpForm()
 
     return render(request,template_name,{'form':form})
-
-def UsuarioEditar(request, id_usuario):
-    template_name='usuarios/editar.html'
-    usuario= Usuario.objects.get(id=id_usuario)
-    if request.method=='GET':
-        form=SingUpForm(instance=usuario)
-    else:
-        form = SingUpForm(request.POST, request.FILES, instance=usuario)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('listarUsuario'))
-    return render(request, template_name,{'form':form})
 
 def login_usuario(request):
     template_name='usuarios/login.html'
@@ -71,7 +109,11 @@ def login_usuario(request):
                 request.session['id']=user.id
                 login(request, user)
 
-                return HttpResponseRedirect(reverse('listarGaleria'))
+                if user.is_superuser:
+                    return HttpResponseRedirect(reverse('menuAdmin'))
+
+                else:
+                    return HttpResponseRedirect(reverse('listarGaleria'))
             else:
                 messages.warning(
                     request,
@@ -106,6 +148,41 @@ def GaleriaCrear(request):
 
     return render(request,template_name,{'form':form})
 
+def GaleriaListar(request):
+    id_usuario=request.session.get('id')
+
+    data = {}
+    data2= {}
+    if Usuario.objects.get(id=id_usuario).is_superuser:
+        data2='si'
+    else:
+        data2='no'
+
+    try:
+        data=Galeria.objects.filter(usuario=id_usuario)
+    except Galeria.DoesNotExist:
+        data=None
+
+
+
+    if data!=None:
+        print(len(data))
+        page=request.GET.get('page',1)
+        paginator=Paginator(data,10)
+
+        try:
+            lista_objetos=paginator.page(page)
+        except PageNotAnInteger:
+            lista_objetos=paginator.page(1)
+        except EmptyPage:
+            lista_objetos=paginator.page(paginator.num_pages)
+    else:
+        lista_objetos=data
+
+    template_name='galerias/listar.html'
+
+    return render(request, template_name,{'lista_objetos':lista_objetos,'super_u':data2})
+
 def GaleriaEditar(request, id_galeria):
     template_name='galerias/editar.html'
     galeria= Galeria.objects.get(id=id_galeria)
@@ -117,6 +194,14 @@ def GaleriaEditar(request, id_galeria):
             form.save()
             return HttpResponseRedirect(reverse('listarGaleria'))
     return render(request, template_name,{'form':form})
+
+def GaleriaEliminar(request, id_galeria):
+    template_name='galerias/eliminar.html'
+    galeria=Galeria.objects.get(id=id_galeria)
+    if request.method=='POST':
+        galeria.delete()
+        return HttpResponseRedirect(reverse('listarGaleria'))
+    return render(request, template_name,{'objeto':galeria})
 
 def VerMiembros(request, id_galeria):
     template_name='fotos/agregarMiembro.html'
@@ -159,65 +244,6 @@ def FotoCrear(request, id_galeria):
 
     return render(request,template_name,{'form':form})
 
-def FotoEditar(request, id_foto, id_galeria):
-    id_usuario=request.session.get('id')
-    template_name='fotos/editar.html'
-    foto= Foto.objects.get(id=id_foto)
-    if request.method=='GET':
-        form=CrearFoto(instance=foto)
-    else:
-        form = CrearFoto(request.POST, request.FILES, instance=foto)
-        if form.is_valid():
-            foto=form.save()
-            Foto.objects.filter(id=foto.id).update(usuario=Usuario.objects.get(id=id_usuario), galeria=Galeria.objects.get(id=id_galeria))
-            return HttpResponseRedirect(reverse('listarFoto',kwargs={'id_galeria':id_galeria}))
-    return render(request, template_name,{'form':form})
-
-def UsuarioListar(request):
-    data = {}
-    data=Usuario.objects.all()
-    page=request.GET.get('page',1)
-    paginator=Paginator(data,10)
-
-    try:
-        lista_objetos=paginator.page(page)
-    except PageNotAnInteger:
-        lista_objetos=paginator.page(1)
-    except EmptyPage:
-        lista_objetos=paginator.page(paginator.num_pages)
-
-    template_name='usuarios/listar.html'
-
-    return render(request, template_name,{'lista_objetos':lista_objetos})
-
-def GaleriaListar(request):
-    id_usuario=request.session.get('id')
-
-    data = {}
-    try:
-        data=Galeria.objects.filter(usuario=id_usuario)
-    except Galeria.DoesNotExist:
-        data=None
-
-
-
-    if data!=None:
-        print(len(data))
-        page=request.GET.get('page',1)
-        paginator=Paginator(data,10)
-
-        try:
-            lista_objetos=paginator.page(page)
-        except PageNotAnInteger:
-            lista_objetos=paginator.page(1)
-        except EmptyPage:
-            lista_objetos=paginator.page(paginator.num_pages)
-    else:
-        lista_objetos=data
-
-    template_name='galerias/listar.html'
-
-    return render(request, template_name,{'lista_objetos':lista_objetos})
 
 def FotoListar(request, id_galeria):
     idGaleria={}
@@ -248,3 +274,25 @@ def FotoListar(request, id_galeria):
     template_name='fotos/listar.html'
 
     return render(request, template_name,{'lista_objetos':lista_objetos, 'idGaleria':idGaleria, 'usuarios':usuarios})
+
+def FotoEditar(request, id_foto, id_galeria):
+    id_usuario=request.session.get('id')
+    template_name='fotos/editar.html'
+    foto= Foto.objects.get(id=id_foto)
+    if request.method=='GET':
+        form=CrearFoto(instance=foto)
+    else:
+        form = CrearFoto(request.POST, request.FILES, instance=foto)
+        if form.is_valid():
+            foto=form.save()
+            Foto.objects.filter(id=foto.id).update(usuario=Usuario.objects.get(id=id_usuario), galeria=Galeria.objects.get(id=id_galeria))
+            return HttpResponseRedirect(reverse('listarFoto',kwargs={'id_galeria':id_galeria}))
+            return render(request, template_name,{'form':form})
+
+def FotoEliminar(request, id_foto, id_galeria):
+    template_name='fotos/eliminar.html'
+    foto=Foto.objects.get(id=id_foto)
+    if request.method=='POST':
+        foto.delete()
+        return HttpResponseRedirect(reverse('listarFoto',kwargs={'id_galeria':id_galeria}))
+    return render(request, template_name,{'objeto':foto, 'idGaleria':id_galeria})

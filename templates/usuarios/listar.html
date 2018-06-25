@@ -6,7 +6,7 @@
 
 {% block titulo %}
   <a class="navbar-brand" href="#">Usuarios</a>
-  {# <a href="{% url 'OpcionesAdmin' %}">Atras</a> #}
+  <a href="{% url 'menuAdmin' %}" class="btn btn-sm btn-primary " role="button">Atrás</a>
 {% endblock %}
 
 {% block nombreLista %}
@@ -46,8 +46,8 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <a class="dropdown-item" href="{% url 'editarUsuario' Objeto.id %}">Editar</a>
+            <a class="dropdown-item" href="{% url 'eliminarUsuario' Objeto.id %}">Eliminar</a>
             {% comment %}
-            <a class="dropdown-item" href="{% url 'deletePlayer' Objeto.id %}">Eliminar</a>
             {% endcomment %}
           </div>
         </div>

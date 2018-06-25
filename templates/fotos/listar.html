@@ -77,8 +77,8 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <a class="dropdown-item" href="{% url 'editarFoto' Objeto.id idGaleria %}">Editar</a>
+            <a class="dropdown-item" href="{% url 'eliminarFoto' Objeto.id idGaleria %}">Eliminar</a>
             {% comment %}
-            <a class="dropdown-item" href="{% url 'deletePlayer' Objeto.id %}">Eliminar</a>
             {% endcomment %}
           </div>
         </div>

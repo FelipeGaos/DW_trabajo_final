@@ -6,7 +6,11 @@
 
 {% block titulo %}
   <a class="navbar-brand" href="#">Mis Galerias</a>
-  <a href="{% url 'bienvenida' %}" class="btn btn-sm btn-primary " role="button">Cerrar Sesión</a>
+  {% if super_u == 'si' %}
+    <a href="{% url 'menuAdmin' %}" class="btn btn-sm btn-primary " role="button">Atrás</a>
+  {% else %}
+    <a href="{% url 'bienvenida' %}" class="btn btn-sm btn-primary " role="button">Cerrar Sesión</a>
+  {% endif %}
 {% endblock %}
 
 {% block nombreLista %}
@@ -37,6 +41,7 @@
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <a class="dropdown-item" href="{% url 'listarFoto' Objeto.id %}">Ver Galeria</a>
             <a class="dropdown-item" href="{% url 'editarGaleria' Objeto.id %}">Editar</a>
+            <a class="dropdown-item" href="{% url 'eliminarGaleria' Objeto.id %}">Eliminar</a>
             {% comment %}
             {% endcomment %}
           </div>
