@@ -1,6 +1,5 @@
 
 # DW Proyecto final
-# Galeria de Fotos
 
 Integrantes:
 
