@@ -1,0 +1,79 @@
+{% extends 'base/listar.html' %}
+
+{% block agregar %}
+  <a href="{% url 'registroGaleria' %}" class="btn btn-lg btn-primary btn-block" role="button">Agregar Galeria</a>
+{% endblock %}
+
+{% block titulo %}
+  <a class="navbar-brand" href="#">Mis Galerias</a>
+  {% if super_u == 'si' %}
+    <a href="{% url 'menuAdmin' %}" class="btn btn-sm btn-primary " role="button">Atrás</a>
+  {% else %}
+    <a href="{% url 'bienvenida' %}" class="btn btn-sm btn-primary " role="button">Cerrar Sesión</a>
+  {% endif %}
+{% endblock %}
+
+{% block nombreLista %}
+  <h1 style="margin-top:30px;">Listado de Galerias</h1>
+{% endblock %}
+
+{% block lista %}
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Acción</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for Objeto in lista_objetos %}
+    <tr>
+      <th scope="row">{{Objeto.id}}</th>
+      <td>{{Objeto.nombre}}</td>
+      <td>{{Objeto.descripcion}}</td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Opciones
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <a class="dropdown-item" href="{% url 'listarFoto' Objeto.id %}">Ver Galeria</a>
+            <a class="dropdown-item" href="{% url 'editarGaleria' Objeto.id %}">Editar</a>
+            <a class="dropdown-item" href="{% url 'eliminarGaleria' Objeto.id %}">Eliminar</a>
+            {% comment %}
+            {% endcomment %}
+          </div>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+{% endblock %}
+
+{% block paginacion %}
+
+{% if lista_objetos.has_other_pages %}
+  <ul class="pagination">
+    {% if lista_objetos.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ lista_objetos.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="disabled"><span class="page-link">&laquo;</span></li>
+    {% endif %}
+    {% for i in lista_objetos.paginator.page_range %}
+      {% if lista_objetos.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if lista_objetos.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ lista_objetos.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span class="page-link">&raquo;</span></li>
+    {% endif %}
+    </ul>
+{% endif %}
+
+{% endblock %}

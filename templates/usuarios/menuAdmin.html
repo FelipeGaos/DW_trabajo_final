@@ -1,0 +1,26 @@
+{% extends 'base/listar.html' %}
+
+{% block agregar %}
+{% endblock %}
+
+{% block titulo %}
+  <a class="navbar-brand" href="#">Menu Administrador</a>
+  <a href="{% url 'bienvenida' %}" class="btn btn-sm btn-primary " role="button">Cerrar Sesión</a>
+{% endblock %}
+
+{% block alternativo %}
+<h1 style="margin-top:30px;">Bienvenido a galerias compartidas!</h1>
+
+<a href="{% url 'listarUsuario' %}" class="btn btn-lg btn-primary btn-block" role="button">Usuarios</a>
+<a href="{% url 'listarGaleria' %}" class="btn btn-lg btn-primary btn-block" role="button">Galerias</a>
+
+{% endblock %}
+
+{% block nombreLista %}
+{% endblock %}
+
+{% block lista %}
+{% endblock %}
+
+{% block paginacion %}
+{% endblock %}

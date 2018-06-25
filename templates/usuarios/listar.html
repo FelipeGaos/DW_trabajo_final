@@ -1,0 +1,84 @@
+{% extends 'base/listar.html' %}
+
+{% block agregar %}
+  <a href="{% url 'registroUsuario' %}" class="btn btn-lg btn-primary btn-block" role="button">Agregar Usuario</a>
+{% endblock %}
+
+{% block titulo %}
+  <a class="navbar-brand" href="#">Usuarios</a>
+  <a href="{% url 'menuAdmin' %}" class="btn btn-sm btn-primary " role="button">Atrás</a>
+{% endblock %}
+
+{% block nombreLista %}
+  <h1 style="margin-top:30px;">Listado de Usuarios</h1>
+{% endblock %}
+
+{% block lista %}
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Foto</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Edad</th>
+      <th scope="col">Acción</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for Objeto in lista_objetos %}
+    <tr>
+      <th scope="row">{{Objeto.id}}</th>
+      {% if Objeto.imagen %}
+      <td><img src="{{Objeto.imagen.url}}" alt="foto" width="100px" height="80px"></td>
+      {% else %}
+      <td>[-----]</td>
+      {% endif %}
+      <td>{{Objeto.username}}</td>
+      <td>{{Objeto.first_name}}</td>
+      <td>{{Objeto.last_name}}</td>
+      <td>{{Objeto.edad}}</td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Opciones
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <a class="dropdown-item" href="{% url 'editarUsuario' Objeto.id %}">Editar</a>
+            <a class="dropdown-item" href="{% url 'eliminarUsuario' Objeto.id %}">Eliminar</a>
+            {% comment %}
+            {% endcomment %}
+          </div>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+{% endblock %}
+
+{% block paginacion %}
+
+{% if lista_objetos.has_other_pages %}
+  <ul class="pagination">
+    {% if lista_objetos.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ lista_objetos.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="disabled"><span class="page-link">&laquo;</span></li>
+    {% endif %}
+    {% for i in lista_objetos.paginator.page_range %}
+      {% if lista_objetos.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if lista_objetos.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ lista_objetos.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span class="page-link">&raquo;</span></li>
+    {% endif %}
+    </ul>
+{% endif %}
+
+{% endblock %}
