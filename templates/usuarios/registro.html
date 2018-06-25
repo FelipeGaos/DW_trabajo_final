@@ -26,14 +26,12 @@
 
 
 
-
+    {% csrf_token %}
 {{ form|bootstrap }}
 
-          <div class="container-login100-form-btn">
-            <button class="login100-form-btn" type="submit">
-              Ingresar
-            </button>
-          </div>
+    <button type="submit" class="btn btn-primary block full-width m-b">
+      Registrar
+    </button>
 
   </form>
   {% endblock %}
