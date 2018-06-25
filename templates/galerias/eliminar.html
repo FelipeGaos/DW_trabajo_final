@@ -1,0 +1,10 @@
+{% extends 'base/eliminar.html' %}
+
+{% block titulo %}
+<title>Eliminar Galeria</title>
+{% endblock %}
+
+{% block contenido %}
+<h3>¿Desea eliminar el registro de {{ objeto.nombre }} ?</h3>
+<a class= "btn btn-default" href="{% url 'listarGaleria' %}">Cancelar</a>
+{% endblock %}

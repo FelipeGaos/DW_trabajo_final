@@ -6,6 +6,7 @@ urlpatterns = [
      path('', views.Bienvenida, name='bienvenida'),
      path('login', views.login_usuario, name='login'),
      path('logout', views.logout_usuario, name='logout'),
+     path('menuAdmin', views.MenuAdmin, name='menuAdmin'),
     # Registro
      path('registroUsuario', views.UsuarioCrear, name='registroUsuario'),
      path('registroGaleria', views.GaleriaCrear, name='registroGaleria'),
@@ -18,6 +19,10 @@ urlpatterns = [
      path('editarUsuario/<int:id_usuario>', views.UsuarioEditar, name='editarUsuario'),
      path('editarGaleria/<int:id_galeria>', views.GaleriaEditar, name='editarGaleria'),
      path('editarFoto/<int:id_foto>/<int:id_galeria>', views.FotoEditar, name='editarFoto'),
+    # Eliminar
+     path('eliminarUsuario/<int:id_usuario>', views.UsuarioEliminar, name='eliminarUsuario'),
+     path('eliminarGaleria/<int:id_galeria>', views.GaleriaEliminar, name='eliminarGaleria'),
+     path('eliminarFoto/<int:id_foto>/<int:id_galeria>', views.FotoEliminar, name='eliminarFoto'),
     # Miembros de galerias
      path('verMiembros/<int:id_galeria>', views.VerMiembros, name='verMiembros'),
      path('agregarMiembros/<int:id_galeria>/<int:id_usuario>', views.AgregarMiembro, name='agregarMiembros'),

@@ -1,0 +1,10 @@
+{% extends 'base/eliminar.html' %}
+
+{% block titulo %}
+<title>Eliminar Foto</title>
+{% endblock %}
+
+{% block contenido %}
+<h3>¿Desea eliminar el registro de <img src="{{objeto.imagen.url}}" alt="foto" width="100px" height="80px"> ?</h3>
+<a class= "btn btn-default" href="{% url 'listarFoto' idGaleria %}">Cancelar</a>
+{% endblock %}
