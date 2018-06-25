@@ -76,7 +76,7 @@ class CrearFoto(forms.ModelForm):
             'descripcion',
         ]
         labels={
-            'imagen':'Nombre',
+            'imagen':'Imagen',
             'fecha':'Fecha',
             'descripcion':'Descripción',
         }
