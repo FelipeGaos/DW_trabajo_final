@@ -1,4 +1,11 @@
-{% extends 'base/agregar.html' %}
+{% extends 'base/base-user.html' %}
+{% load static %}
+{% load bootstrap %}
+
+{% block user %}
+
+  <form class="login100-form validate-form" method="post" enctype="multipart/form-data">
+
 
 {% block mensajes %}
   {% if form.errors %}
@@ -17,10 +24,16 @@
   {% endif %}
 {% endblock %}
 
-{% block titulo %}
-<title>Registro de usuario</title>
-{% endblock %}
 
-{% block nombreBoton %}
-  Registrarme
-{% endblock %}
+
+
+{{ form|bootstrap }}
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" type="submit">
+              Ingresar
+            </button>
+          </div>
+
+  </form>
+  {% endblock %}
