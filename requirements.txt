@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-Pillow==2.2.1
-=======
 Django==2.0.6
 Pillow==5.1.0
 django-bootstrap-form==3.4
 pytz==2018.4
->>>>>>> 83b984c379a15e165e808d84edd50fc589fba6b5
