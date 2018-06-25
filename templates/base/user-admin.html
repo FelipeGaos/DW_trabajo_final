@@ -36,18 +36,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-<!--           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li> -->
-<!--           <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li> -->
+
 
       {% block NavBar %}
       {% endblock %}
@@ -74,49 +63,21 @@
 
 
               <dir class="row">
-                <div class="col-md-9 titulos sombra">
+                <div class="col-md-12 titulos sombra">
                 {% block nombreLista %}
                   <h1>Listado de #</h1>
                 {% endblock %}
                 </div>
-                
-                <div class="col-md-3">
-                  {% block agregar %}
-                  <a href="{% url 'listTeam' %}" class="btn btn-lg btn-primary btn-block" role="button">Agregar</a>
-                  {% endblock %}
-                </div>
+
               </dir>
 
 
               <div class="row">
                 {% block contenido %}
-                <div class="col-md-10 mx-auto">
-                  <table class="table table-striped jumbotron">
-                      {% block lista %}
 
-                      {% endblock %}
-                  </table>
-                </div>
                 {% endblock %}
               </div>
             </div>
-
-
-            <nav aria-label="Page navigation example">
-              {% block paginacion %}
-              <ul class="pagination justify-content-end">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">Anterior</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Siguiente</a>
-                </li>
-              </ul>
-              {% endblock %}
-            </nav>
 
         </div>
     </div>

@@ -1,13 +1,22 @@
 {% extends 'base/listar.html' %}
 
+{% block titulo %}
+  <a class="navbar-brand" href="#">Fotos</a>
+{% endblock %}
+
+{% block NavBar %}
+<li class="nav-item">
+      <a href="{% url 'listarGaleria' %}" class="nav-link">Atrás</a>
+</li>
+{% endblock %}
+
+
+
 {% block agregar %}
   <a href="{% url 'registroFoto' idGaleria %}" class="btn btn-lg btn-primary btn-block" role="button">Agregar imagen</a>
 {% endblock %}
 
-{% block titulo %}
-  <a class="navbar-brand" href="#">Fotos</a>
-  <a href="{% url 'listarGaleria' %}" class="btn btn-sm btn-primary " role="button">Atrás</a>
-{% endblock %}
+
 
 {% block alternativo %}
 <h2 style="margin-top:30px;">Usuarios miembros</h2>

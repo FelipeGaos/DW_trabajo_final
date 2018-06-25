@@ -89,6 +89,22 @@ def UsuarioCrear(request):
 
     return render(request,template_name,{'form':form})
 
+def UsuarioCrear_admin(request):
+    template_name='usuarios/registro_admin.html'
+
+    if request.method=='POST':
+        form = SingUpForm(request.POST, request.FILES)
+        if form.is_valid():
+            user=form.save()
+            # request.session['id']=user.id
+            return HttpResponseRedirect(reverse('listarUsuario'))
+        else:
+            print('no valido')
+
+    else:
+        form=SingUpForm()
+
+    return render(request,template_name,{'form':form})
 def login_usuario(request):
     template_name='usuarios/login.html'
     data={}

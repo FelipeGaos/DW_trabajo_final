@@ -8,3 +8,11 @@
     .sombra:hover {
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     }
+
+	.titulos{
+		background-color: white;
+		border-radius: 29px 29px 29px 29px;
+		-moz-border-radius: 29px 29px 29px 29px;
+		-webkit-border-radius: 29px 29px 29px 29px;
+		border: 0px solid #000000;
+	}
