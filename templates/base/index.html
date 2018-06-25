@@ -1,17 +1,21 @@
-{% extends 'base/listar.html' %}
+{% extends 'base/base-user.html' %}
 
 {% block agregar %}
 {% endblock %}
 
 {% block titulo %}
-  <a class="navbar-brand" href="#">Bienvenido</a>
+<!--   <a class="navbar-brand" href="#">Bienvenido</a> -->
 {% endblock %}
 
-{% block alternativo %}
-<h1 style="margin-top:30px;">Bienvenido a galerias compartidas!</h1>
+{% block user %}
 
+
+<div class="login100-form mx-auto sombra">
+<h1>Galerias Compartidas!</h1>
+<br>
 <a href="{% url 'registroUsuario' %}" class="btn btn-lg btn-primary btn-block" role="button">Registrarse</a>
 <a href="{% url 'login' %}" class="btn btn-lg btn-primary btn-block" role="button">Iniciar Sesión</a>
+</div>
 
 {% endblock %}
 

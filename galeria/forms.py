@@ -81,7 +81,7 @@ class CrearFoto(forms.ModelForm):
             'descripcion':'Descripción',
         }
         widgets={
-            'fecha':forms.DateInput(attrs={'class':'form-control'}),
+            'fecha':forms.DateInput(attrs={'class':'form-control','type':'date'}),
             'descripcion':forms.TextInput(attrs={'class':'form-control'}),
         }
 
