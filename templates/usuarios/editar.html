@@ -1,4 +1,16 @@
 {% extends 'base/agregar.html' %}
+{% block NavBar %}
+<li class="nav-item">
+      <a href="{% url 'listarUsuario' %}" class="nav-link">Atrás</a>
+</li>
+{% endblock %}
+
+    {% block nombreLista %}
+      <h1>Agregar Usuario</h1>
+    {% endblock %}
+      {% block titulo %}
+        <a class="navbar-brand" href="#">Agregar Usuario</a>
+      {% endblock %}
 
 {% block mensajes %}
   {% if form.errors %}
@@ -17,9 +29,6 @@
   {% endif %}
 {% endblock %}
 
-{% block titulo %}
-<title>Editar usuario</title>
-{% endblock %}
 
 {% block nombreBoton %}
   Guardar cambios

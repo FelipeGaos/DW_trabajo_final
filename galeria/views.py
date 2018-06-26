@@ -303,7 +303,7 @@ def FotoEditar(request, id_foto, id_galeria):
             foto=form.save()
             Foto.objects.filter(id=foto.id).update(usuario=Usuario.objects.get(id=id_usuario), galeria=Galeria.objects.get(id=id_galeria))
             return HttpResponseRedirect(reverse('listarFoto',kwargs={'id_galeria':id_galeria}))
-            return render(request, template_name,{'form':form})
+    return render(request, template_name,{'form':form})
 
 def FotoEliminar(request, id_foto, id_galeria):
     template_name='fotos/eliminar.html'

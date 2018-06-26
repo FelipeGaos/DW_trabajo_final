@@ -1,10 +1,33 @@
-{% extends 'base/eliminar.html' %}
+{% extends 'base/base.html' %}
 
 {% block titulo %}
 <title>Eliminar Foto</title>
 {% endblock %}
 
-{% block contenido %}
-<h3>¿Desea eliminar el registro de <img src="{{objeto.imagen.url}}" alt="foto" width="100px" height="80px"> ?</h3>
-<a class= "btn btn-default" href="{% url 'listarFoto' idGaleria %}">Cancelar</a>
+{% block nombreLista %}
+	<h1>Eliminar Foto</h1>
 {% endblock %}
+
+{% block contenido %}
+<!-- <h3>¿Desea eliminar el registro de <img src="{{objeto.imagen.url}}" alt="foto" width="100px" height="80px"> ?</h3>
+<a class= "btn btn-default" href="{% url 'listarFoto' idGaleria %}">Cancelar</a> -->
+
+
+ <div class="col-md-4 col-xs-12 col-sm-12 mx-auto">
+     <form method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+        <div class="card sombra " style="margin-top: 20px;" >
+          <img class="card-img-top  mx-auto" src="{{objeto.imagen.url}}" alt="Card image cap" style="width: 250px;">
+          <div class="card-body">
+            <p class="card-text">¿Desea eliminar el registro?</p>
+          </div>
+          <div class="card-body">
+              <a class="btn btn-warning" href="{% url 'listarFoto' idGaleria %}">Cancelar</a>
+              <button class="btn btn-danger" type="submit">Eliminar</button>
+          </div>
+        </div>
+      </form>
+      </div>
+{% endblock %}
+
+

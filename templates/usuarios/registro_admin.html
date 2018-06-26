@@ -1,9 +1,11 @@
-{% extends 'base/listar.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 {% load bootstrap %}
 
 
-
+      {% block titulo %}
+        <a class="navbar-brand" href="#">Agregar Usuario</a>
+      {% endblock %}
     {% block NavBar %}
     <a href="{% url 'listarUsuario' %}" class="nav-link">Atrás</a>
     {% endblock %}
@@ -12,17 +14,8 @@
       <h1>Agregar Usuario</h1>
     {% endblock %}
     
-    {% block agregar %}
-    <!-- <a class="btn btn-lg btn-primary btn-block" role="button">Agregar</a> -->
-    {% endblock %}
-
 
 {% block contenido %}
-
-
-
-
-
 
   <form class="jumbotron mx-auto" method="post" enctype="multipart/form-data">
 
