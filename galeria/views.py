@@ -236,7 +236,7 @@ def EliminarMiembro(request, id_galeria, id_usuario):
     Galeria.objects.get(id=id_galeria).usuario.remove(Usuario.objects.get(id=id_usuario))
     idGaleria=id_galeria
 
-    if Galeria.objects.filter(usuario=None):
+    if Galeria.objects.filter(id=id_galeria,usuario=None):
         print("galeria vacia")
         Galeria.objects.filter(id=id_galeria).delete()
         return HttpResponseRedirect(reverse('listarGaleria'))
