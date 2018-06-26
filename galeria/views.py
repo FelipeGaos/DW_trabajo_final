@@ -89,6 +89,22 @@ def UsuarioCrear(request):
 
     return render(request,template_name,{'form':form})
 
+def UsuarioCrear_admin(request):
+    template_name='usuarios/registro_admin.html'
+
+    if request.method=='POST':
+        form = SingUpForm(request.POST, request.FILES)
+        if form.is_valid():
+            user=form.save()
+            # request.session['id']=user.id
+            return HttpResponseRedirect(reverse('listarUsuario'))
+        else:
+            print('no valido')
+
+    else:
+        form=SingUpForm()
+
+    return render(request,template_name,{'form':form})
 def login_usuario(request):
     template_name='usuarios/login.html'
     data={}
@@ -220,7 +236,7 @@ def EliminarMiembro(request, id_galeria, id_usuario):
     Galeria.objects.get(id=id_galeria).usuario.remove(Usuario.objects.get(id=id_usuario))
     idGaleria=id_galeria
 
-    if Galeria.objects.filter(usuario=None):
+    if Galeria.objects.filter(id=id_galeria,usuario=None):
         print("galeria vacia")
         Galeria.objects.filter(id=id_galeria).delete()
         return HttpResponseRedirect(reverse('listarGaleria'))
@@ -287,7 +303,7 @@ def FotoEditar(request, id_foto, id_galeria):
             foto=form.save()
             Foto.objects.filter(id=foto.id).update(usuario=Usuario.objects.get(id=id_usuario), galeria=Galeria.objects.get(id=id_galeria))
             return HttpResponseRedirect(reverse('listarFoto',kwargs={'id_galeria':id_galeria}))
-            return render(request, template_name,{'form':form})
+    return render(request, template_name,{'form':form})
 
 def FotoEliminar(request, id_foto, id_galeria):
     template_name='fotos/eliminar.html'

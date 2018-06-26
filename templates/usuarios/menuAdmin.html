@@ -5,19 +5,34 @@
 
 {% block titulo %}
   <a class="navbar-brand" href="#">Menu Administrador</a>
-  <a href="{% url 'bienvenida' %}" class="btn btn-sm btn-primary " role="button">Cerrar Sesión</a>
-{% endblock %}
-
-{% block alternativo %}
-<h1 style="margin-top:30px;">Bienvenido a galerias compartidas!</h1>
-
-<a href="{% url 'listarUsuario' %}" class="btn btn-lg btn-primary btn-block" role="button">Usuarios</a>
-<a href="{% url 'listarGaleria' %}" class="btn btn-lg btn-primary btn-block" role="button">Galerias</a>
-
 {% endblock %}
 
 {% block nombreLista %}
+	<h1>Bienvenido a galerias compartidas!</h1>
 {% endblock %}
+
+
+{% block contenido %}
+
+
+
+
+
+<div class="card text-center mx-auto col-md-4">
+  <div class="card-header">
+    Acciones
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Admin</h5>
+   	<a href="{% url 'listarUsuario' %}" class="btn btn-lg btn-primary btn-block" role="button">Usuarios</a>
+	<a href="{% url 'listarGaleria' %}" class="btn btn-lg btn-primary btn-block" role="button">Galerias</a>
+  </div>
+  <div class="card-footer text-muted">
+    
+  </div>
+</div>
+{% endblock %}
+
 
 {% block lista %}
 {% endblock %}

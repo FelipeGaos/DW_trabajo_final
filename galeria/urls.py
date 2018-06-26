@@ -9,6 +9,7 @@ urlpatterns = [
      path('menuAdmin', views.MenuAdmin, name='menuAdmin'),
     # Registro
      path('registroUsuario', views.UsuarioCrear, name='registroUsuario'),
+     path('registroUsuario_admin', views.UsuarioCrear_admin, name='registroUsuario_admin'),
      path('registroGaleria', views.GaleriaCrear, name='registroGaleria'),
      path('registroFoto/<int:id_galeria>', views.FotoCrear, name='registroFoto'),
     # Listar

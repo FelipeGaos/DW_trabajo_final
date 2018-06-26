@@ -1,9 +1,16 @@
 {% extends 'base/agregar.html' %}
 
-{% block titulo %}
-<title>Editar Imagen</title>
+
+{% block NavBar %}
+      <a href="{% url 'listarGaleria' %}" class="nav-link">Atrás</a>
 {% endblock %}
 
+    {% block nombreLista %}
+      <h1>Editar Imagen</h1>
+    {% endblock %}
+      {% block titulo %}
+        <a class="navbar-brand" href="#">Editar Foto</a>
+      {% endblock %}
 {% block nombreBoton %}
   Guardar cambios
 {% endblock %}

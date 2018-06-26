@@ -1,16 +1,26 @@
 {% extends 'base/listar.html' %}
 
-{% block agregar %}
-  <a href="{% url 'registroUsuario' %}" class="btn btn-lg btn-primary btn-block" role="button">Agregar Usuario</a>
-{% endblock %}
 
 {% block titulo %}
   <a class="navbar-brand" href="#">Usuarios</a>
-  <a href="{% url 'menuAdmin' %}" class="btn btn-sm btn-primary " role="button">Atrás</a>
 {% endblock %}
 
+
+{% block NavBar %}
+<li class="nav-item">
+      <a href="{% url 'menuAdmin' %}" class="nav-link">Atrás</a>
+</li>
+{% endblock %}
+
+
+
+{% block agregar %}
+  <a href="{% url 'registroUsuario_admin' %}" class="btn btn-lg btn-primary btn-block float-right" role="button">Agregar Usuario</a>
+{% endblock %}
+
+
 {% block nombreLista %}
-  <h1 style="margin-top:30px;">Listado de Usuarios</h1>
+  <h1>Listado de Usuarios</h1>
 {% endblock %}
 
 {% block lista %}
@@ -57,26 +67,39 @@
   </tbody>
 {% endblock %}
 
+
 {% block paginacion %}
 
 {% if lista_objetos.has_other_pages %}
   <ul class="pagination">
     {% if lista_objetos.has_previous %}
-      <li class="page-item"><a class="page-link" href="?page={{ lista_objetos.previous_page_number }}">&laquo;</a></li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ lista_objetos.previous_page_number }}">&laquo;</a>
+      </li>
     {% else %}
-    <li class="disabled"><span class="page-link">&laquo;</span></li>
+    <li class="disabled">
+      <span class="page-link">&laquo;</span>
+    </li>
     {% endif %}
     {% for i in lista_objetos.paginator.page_range %}
       {% if lista_objetos.number == i %}
-        <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only">(current)</span></span></li>
+        <li class="page-item active">
+          <span class="page-link">{{ i }}<span class="sr-only">(current)</span></span>
+        </li>
       {% else %}
-        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        <li class="page-item">
+          <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+        </li>
       {% endif %}
     {% endfor %}
     {% if lista_objetos.has_next %}
-      <li class="page-item"><a class="page-link" href="?page={{ lista_objetos.next_page_number }}">&raquo;</a></li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ lista_objetos.next_page_number }}">&raquo;</a>
+      </li>
     {% else %}
-      <li class="disabled"><span class="page-link">&raquo;</span></li>
+      <li class="disabled">
+        <span class="page-link">&raquo;</span>
+      </li>
     {% endif %}
     </ul>
 {% endif %}

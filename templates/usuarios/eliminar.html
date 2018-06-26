@@ -1,10 +1,26 @@
-{% extends 'base/eliminar.html' %}
+{% extends 'base/base.html' %}
 
-{% block titulo %}
-<title>Eliminar Usuario</title>
+
+{% block nombreLista %}
+	<h1>Eliminar Foto</h1>
 {% endblock %}
 
 {% block contenido %}
-<h3>¿Desea eliminar el registro de {{ objeto.username }} ?</h3>
-<a class= "btn btn-default" href="{% url 'listarUsuario' %}">Cancelar</a>
+
+  <div class="col-md-4 col-xs-12 col-sm-12 mx-auto">
+     <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card sombra" style="margin-top: 20px;">
+        <div class="card-header">
+          ¿Desea eliminar el registro de {{ objeto.username }} ?
+        </div>
+      <div class="card-body">
+        <a class= "btn btn-warning" href="{% url 'listarUsuario' %}">Cancelar</a>
+        <button class="btn btn-danger" type="submit">Eliminar</button>
+      </div>
+    </div>
+    </form>
+  </div>
+
 {% endblock %}
+

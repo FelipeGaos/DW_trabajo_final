@@ -1,55 +1,47 @@
 {% extends 'base/listar.html' %}
 
+{% block titulo %}
+  <a class="navbar-brand" href="#">Mis Galerias</a>
+{% endblock %}
+
+{% block NavBar %}
+  {% if super_u == 'si' %}
+    <a href="{% url 'menuAdmin' %}" class="nav-link">Atrás</a>
+  {% endif %}
+{% endblock %}
+
+
+{% block nombreLista %}
+  <h1>Listado de Galerias</h1>
+{% endblock %}
+
 {% block agregar %}
   <a href="{% url 'registroGaleria' %}" class="btn btn-lg btn-primary btn-block" role="button">Agregar Galeria</a>
 {% endblock %}
 
-{% block titulo %}
-  <a class="navbar-brand" href="#">Mis Galerias</a>
-  {% if super_u == 'si' %}
-    <a href="{% url 'menuAdmin' %}" class="btn btn-sm btn-primary " role="button">Atrás</a>
-  {% else %}
-    <a href="{% url 'bienvenida' %}" class="btn btn-sm btn-primary " role="button">Cerrar Sesión</a>
-  {% endif %}
-{% endblock %}
 
-{% block nombreLista %}
-  <h1 style="margin-top:30px;">Listado de Galerias</h1>
-{% endblock %}
+{% block contenido %}
 
-{% block lista %}
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Descripción</th>
-      <th scope="col">Acción</th>
-    </tr>
-  </thead>
-
-  <tbody>
     {% for Objeto in lista_objetos %}
-    <tr>
-      <th scope="row">{{Objeto.id}}</th>
-      <td>{{Objeto.nombre}}</td>
-      <td>{{Objeto.descripcion}}</td>
-      <td>
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Opciones
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <a class="dropdown-item" href="{% url 'listarFoto' Objeto.id %}">Ver Galeria</a>
-            <a class="dropdown-item" href="{% url 'editarGaleria' Objeto.id %}">Editar</a>
-            <a class="dropdown-item" href="{% url 'eliminarGaleria' Objeto.id %}">Eliminar</a>
-            {% comment %}
-            {% endcomment %}
-          </div>
+  <div class="col-md-4 col-xs-12 col-sm-12">
+    <div class="card sombra" style="margin-top: 20px;">
+        <div class="card-header">
+          {{Objeto.nombre}}
         </div>
-      </td>
-    </tr>
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted"><!-- ID = {{Objeto.id}} --> Descripcion</h6>
+        <p class="card-text">{{Objeto.descripcion}}</p>
+        <a href="{% url 'listarFoto' Objeto.id %}" class="btn btn-success">Ver</a>
+        <a href="{% url 'editarGaleria' Objeto.id %}" class="btn btn-warning">Editar</a>
+        <a href="{% url 'eliminarGaleria' Objeto.id %}" class="btn btn-danger">Borrar</a>
+      </div>
+    </div>
+  </div>
+
+    {% comment %}
+    {% endcomment %}
     {% endfor %}
-  </tbody>
+
 {% endblock %}
 
 {% block paginacion %}
