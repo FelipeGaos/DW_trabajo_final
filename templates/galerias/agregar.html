@@ -1,12 +1,12 @@
 {% extends 'base/agregar.html' %}
 
-{% block atras %}
-<a href="{% url 'listarGaleria' %}" class="btn btn-sm btn-primary " role="button">Atrás</a>
-{% endblock%}
-
-{% block titulo %}
-<title>Agregar Galeria</title>
+{% block NavBar %}
+      <a href="{% url 'listarGaleria' %}" class="nav-link">Atrás</a>
 {% endblock %}
+
+    {% block nombreLista %}
+      <h1>Agregar Galeria</h1>
+    {% endblock %}
 
 {% block nombreBoton %}
   Agregar Galeria
