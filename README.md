@@ -35,3 +35,16 @@ Integrantes:
 >* Se debe instalar los paquetes del archivo  requirements.txt
 >* El perfil de Administrador se debe crear a travez del comando "python manage.py createsuperuser"
 >* Para iniciar la aplicación se debe ingresar a localhost sin agregados  (ej: 127.0.0.1:8080)
+
+## Instalacion
+
+### Requerimientos
+
+```sh
+$ pip install requirements.txt
+```
+### Creacion SuperUsuario (Admin)
+
+```sh
+$ python manage.py createsuperuser
+```
